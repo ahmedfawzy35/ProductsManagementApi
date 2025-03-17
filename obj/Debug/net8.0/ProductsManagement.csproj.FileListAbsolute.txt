@@ -147,10 +147,11 @@ E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\stati
 E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ProductsManagement.props
 E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ProductsManagement.props
 E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\staticwebassets.pack.json
-E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\Products.A4E8987F.Up2Date
 E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\ProductsManagement.dll
 E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\refint\ProductsManagement.dll
 E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\ProductsManagement.pdb
 E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\ProductsManagement.genruntimeconfig.cache
 E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\ref\ProductsManagement.dll
+E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\ProductsManagement.sourcelink.json
+E:\Programing\Codes\ProductsManagement\ProductsManagement\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

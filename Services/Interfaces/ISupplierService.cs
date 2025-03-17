@@ -1,4 +1,5 @@
 ﻿using Products_Management_API.Models.DTO.Supplier;
+using ProductsManagement.Models.DTO.Supplier;
 
 namespace Products_Management_API.Services.Interfaces
 {
@@ -11,6 +12,6 @@ namespace Products_Management_API.Services.Interfaces
         Task DeleteAsync(int id);
         Task<IEnumerable<SupplierDto>> GetSuppliersAddedInLastDay(int days);
 
-        Task<IEnumerable<SupplierDto>> GetFilteredSuppliersAsync(SupplierFilterDto filter);
+        Task<IEnumerable<SupplierDto>> GetFilteredSuppliersAsync(SupplierFilterDto filterDto);
     }
 }

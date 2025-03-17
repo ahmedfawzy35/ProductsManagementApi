@@ -661,30 +661,88 @@
         "tags": [
           "Order"
         ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderFilterDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderFilterDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderFilterDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderFilterDto"
-              }
+        "parameters": [
+          {
+            "name": "OrderDateFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "OrderDateTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "MinTotalAmount",
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "MaxTotalAmount",
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "OrderStatus",
+            "in": "query",
+            "schema": {
+              "maxLength": 50,
+              "type": "string"
+            }
+          },
+          {
+            "name": "PaymentMethod",
+            "in": "query",
+            "schema": {
+              "maxLength": 50,
+              "type": "string"
+            }
+          },
+          {
+            "name": "ShippingAddress",
+            "in": "query",
+            "schema": {
+              "maxLength": 100,
+              "type": "string"
+            }
+          },
+          {
+            "name": "CustomerId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsAscending",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1021,30 +1079,59 @@
         "tags": [
           "Products"
         ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductFilterDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductFilterDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductFilterDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductFilterDto"
-              }
+        "parameters": [
+          {
+            "name": "MinPrice",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "MaxPrice",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "IsAvailable",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "CategoryId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "OrderBy",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "name"
+            }
+          },
+          {
+            "name": "OrderDirection",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "Ascending",
+                "Descending"
+              ],
+              "type": "string",
+              "default": "Ascending"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1433,30 +1520,67 @@
         "tags": [
           "Supplier"
         ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SupplierFilterDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SupplierFilterDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SupplierFilterDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SupplierFilterDto"
-              }
+        "parameters": [
+          {
+            "name": "Name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Email",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "email"
+            }
+          },
+          {
+            "name": "PhoneNumber",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Address",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CompanyName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreatedDateFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "CreatedDateTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "IsActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1592,11 +1716,11 @@
             "default": "supplier@example.com"
           },
           "phoneNumber": {
-            "maxLength": 20,
-            "minLength": 1,
+            "maxLength": 11,
+            "minLength": 11,
+            "pattern": "^01\\d{9}$",
             "type": "string",
-            "format": "tel",
-            "default": "1234567890"
+            "default": "01012345678"
           },
           "address": {
             "maxLength": 200,
@@ -1628,6 +1752,7 @@
           "firstName",
           "isActive",
           "lastName",
+          "phoneNumber",
           "registrationDate"
         ],
         "type": "object",
@@ -1653,10 +1778,10 @@
           },
           "phoneNumber": {
             "maxLength": 11,
+            "minLength": 11,
+            "pattern": "^01\\d{9}$",
             "type": "string",
-            "format": "tel",
-            "default": "01234567891",
-            "nullable": true
+            "default": "01012345678"
           },
           "address": {
             "maxLength": 100,
@@ -1772,61 +1897,6 @@
         },
         "additionalProperties": false
       },
-      "OrderFilterDto": {
-        "type": "object",
-        "properties": {
-          "orderDateFrom": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "orderDateTo": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "minTotalAmount": {
-            "minimum": 1,
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "maxTotalAmount": {
-            "minimum": 1,
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "orderStatus": {
-            "maxLength": 50,
-            "type": "string",
-            "nullable": true
-          },
-          "paymentMethod": {
-            "maxLength": 50,
-            "type": "string",
-            "nullable": true
-          },
-          "shippingAddress": {
-            "maxLength": 100,
-            "type": "string",
-            "nullable": true
-          },
-          "customerId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "sortBy": {
-            "type": "string",
-            "nullable": true
-          },
-          "isAscending": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
       "OrderUpdateDto": {
         "required": [
           "customerId",
@@ -1866,85 +1936,6 @@
             "type": "integer",
             "format": "int32",
             "default": 1000
-          }
-        },
-        "additionalProperties": false
-      },
-      "ProductFilterDto": {
-        "type": "object",
-        "properties": {
-          "minPrice": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "maxPrice": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "isAvailable": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "categoryId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "orderBy": {
-            "type": "string",
-            "default": "name",
-            "nullable": true
-          },
-          "orderDirection": {
-            "enum": [
-              "Ascending",
-              "Descending"
-            ],
-            "type": "string",
-            "default": "Ascending"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SupplierFilterDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "nullable": true
-          },
-          "phoneNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "companyName": {
-            "type": "string",
-            "nullable": true
-          },
-          "createdDateFrom": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "createdDateTo": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean",
-            "nullable": true
           }
         },
         "additionalProperties": false

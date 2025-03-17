@@ -22,9 +22,11 @@ namespace Products_Management_API.Models.DTO.Customer
         [DefaultValue("example@email.com")]
         public string Email { get; set; }
 
-        [Phone(ErrorMessage = "Invalid phone number format.")]
-        [MaxLength(11, ErrorMessage = "Phone number cannot exceed 11 characters.")]
-        [DefaultValue("01234567891")]
+        [Required(ErrorMessage = "Phone number is required.")]
+        [RegularExpression(@"^01\d{9}$", ErrorMessage = "Phone number must start with '01' and be exactly 11 digits.")]
+        [MaxLength(11, ErrorMessage = "Phone number must be exactly 11 digits.")]
+        [MinLength(11, ErrorMessage = "Phone number must be exactly 11 digits.")]
+        [DefaultValue("01012345678")]
         public string PhoneNumber { get; set; }
 
         [MaxLength(100, ErrorMessage = "Address cannot exceed 100 characters.")]

@@ -3,6 +3,7 @@ using Products_Management_API.Models.Domain;
 using Products_Management_API.Models.DTO.Order;
 using Products_Management_API.Repository.Interfaces;
 using Products_Management_API.Services.Interfaces;
+using ProductsManagement.Models.DTO.Order;
 using System.ComponentModel.DataAnnotations;
 
 namespace Products_Management_API.Services.Implements

@@ -94,20 +94,8 @@ namespace Products_Management_API.Services.Implements
                 throw new ValidationException("Input data cannot be null.");
             }
 
-            if (await _customerRepository.EmailExistsAsync(customerUpdateDto.Email))
-            {
-                throw new InvalidOperationException("Email already exists");
-            }
-
             var existingCustomer = await _customerRepository.GetByIdAsync(id) ??
                 throw new KeyNotFoundException($"Customer not found.");
-
-            var name = $"{existingCustomer.FirstName} {existingCustomer.LastName}";
-            var name1 = $"{customerUpdateDto.FirstName} {customerUpdateDto.LastName}";
-            if (name.Equals(name1))
-            {
-                throw new Exception("No Changed, New Customer is same Old Customer!");
-            }
             _mapper.Map(customerUpdateDto, existingCustomer);
 
             await _customerRepository.UpdateAsync(id, existingCustomer);

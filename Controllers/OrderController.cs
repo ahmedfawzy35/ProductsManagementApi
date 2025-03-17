@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Products_Management_API.Models.DTO.Order;
 using Products_Management_API.Services.Interfaces;
+using ProductsManagement.Models.DTO.Order;
 
 namespace Products_Management_API.Controllers
 {
@@ -123,7 +124,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("Filtering")]
-        public async Task<IActionResult> GetFilteredOrders(OrderFilterDto filterDto)
+        public async Task<IActionResult> GetFilteredOrders([FromQuery] OrderFilterDto filterDto)
         {
             if (!ModelState.IsValid)
             {
@@ -140,5 +141,6 @@ namespace Products_Management_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
     }
 }

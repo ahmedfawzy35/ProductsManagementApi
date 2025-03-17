@@ -1,4 +1,5 @@
 ﻿using Products_Management_API.Models.DTO.Order;
+using ProductsManagement.Models.DTO.Order;
 
 namespace Products_Management_API.Services.Interfaces
 {
@@ -14,6 +15,6 @@ namespace Products_Management_API.Services.Interfaces
 
         Task<IEnumerable<OrderDto>> GetAllOrdersAsync();
         Task<OrderDto> GetOrderByIdAsync(int id);
-        Task<IEnumerable<OrderDto>> GetFilteredOrdersAsync(OrderFilterDto filter);
+        Task<IEnumerable<OrderDto>> GetFilteredOrdersAsync(OrderFilterDto filterDto);
     }
 }

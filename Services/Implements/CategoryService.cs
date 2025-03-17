@@ -128,7 +128,8 @@ namespace Products_Management_API.Services.Implements
         {
             if (days <= 0) throw new Exception("Invalid Value");
 
-            var categories = await _categoryRepository.GetCategoriesAddedInLastDay(days) ??
+            var categories = await _categoryRepository.GetCategoriesAddedInLastDay(days);
+            if (categories == null || !categories.Any())
                 throw new Exception("No categories Found!");
 
             var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);

@@ -130,7 +130,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("Filtering")]
-        public async Task<IActionResult> GetFilteredReviewsAsync(int? minRating, int? maxRating, string orderBy, OrderDirection orderDirection)
+        public async Task<IActionResult> GetFilteredReviewsAsync([FromQuery] int? minRating, [FromQuery] int? maxRating, [FromQuery] string orderBy, [FromQuery] OrderDirection orderDirection)
         {
             if (!ModelState.IsValid)
             {

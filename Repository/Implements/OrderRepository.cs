@@ -3,6 +3,7 @@ using Products_Management_API.Data;
 using Products_Management_API.Models.Domain;
 using Products_Management_API.Models.DTO.Order;
 using Products_Management_API.Repository.Interfaces;
+using ProductsManagement.Models.DTO.Order;
 
 namespace Products_Management_API.Repository.Implements
 {
@@ -77,39 +78,40 @@ namespace Products_Management_API.Repository.Implements
             return order;
         }
 
-        public async Task<IEnumerable<OrderDto>> GetFilteredOrdersAsync(OrderFilterDto filter)
+
+        public async Task<IEnumerable<OrderDto>> GetFilteredOrdersAsync(OrderFilterDto filterDto)
         {
             var query = _dbContext.Orders.AsQueryable();
 
-            if (filter.OrderDateFrom.HasValue)
-                query = query.Where(o => o.OrderDate >= filter.OrderDateFrom.Value);
+            if (filterDto.OrderDateFrom.HasValue)
+                query = query.Where(o => o.OrderDate >= filterDto.OrderDateFrom.Value);
 
-            if (filter.OrderDateTo.HasValue)
-                query = query.Where(o => o.OrderDate <= filter.OrderDateTo.Value);
+            if (filterDto.OrderDateTo.HasValue)
+                query = query.Where(o => o.OrderDate <= filterDto.OrderDateTo.Value);
 
-            if (filter.MinTotalAmount.HasValue)
-                query = query.Where(o => o.TotalAmount >= filter.MinTotalAmount.Value);
+            if (filterDto.MinTotalAmount.HasValue)
+                query = query.Where(o => o.TotalAmount >= filterDto.MinTotalAmount.Value);
 
-            if (filter.MaxTotalAmount.HasValue)
-                query = query.Where(o => o.TotalAmount <= filter.MaxTotalAmount.Value);
+            if (filterDto.MaxTotalAmount.HasValue)
+                query = query.Where(o => o.TotalAmount <= filterDto.MaxTotalAmount.Value);
 
-            if (!string.IsNullOrWhiteSpace(filter.OrderStatus))
-                query = query.Where(o => o.OrderStatus == filter.OrderStatus);
+            if (!string.IsNullOrWhiteSpace(filterDto.OrderStatus))
+                query = query.Where(o => o.OrderStatus == filterDto.OrderStatus);
 
-            if (!string.IsNullOrWhiteSpace(filter.PaymentMethod))
-                query = query.Where(o => o.PaymentMethod == filter.PaymentMethod);
+            if (!string.IsNullOrWhiteSpace(filterDto.PaymentMethod))
+                query = query.Where(o => o.PaymentMethod == filterDto.PaymentMethod);
 
-            if (!string.IsNullOrWhiteSpace(filter.ShippingAddress))
-                query = query.Where(o => o.ShippingAddress.Contains(filter.ShippingAddress));
+            if (!string.IsNullOrWhiteSpace(filterDto.ShippingAddress))
+                query = query.Where(o => o.ShippingAddress.Contains(filterDto.ShippingAddress));
 
-            if (filter.CustomerId.HasValue)
-                query = query.Where(o => o.CustomerId == filter.CustomerId.Value);
+            if (filterDto.CustomerId.HasValue)
+                query = query.Where(o => o.CustomerId == filterDto.CustomerId.Value);
 
             // Sorting
-            query = filter.SortBy?.ToLower() switch
+            query = filterDto.SortBy?.ToLower() switch
             {
-                "date" => filter.IsAscending ? query.OrderBy(o => o.OrderDate) : query.OrderByDescending(o => o.OrderDate),
-                "amount" => filter.IsAscending ? query.OrderBy(o => o.TotalAmount) : query.OrderByDescending(o => o.TotalAmount),
+                "date" => filterDto.IsAscending ? query.OrderBy(o => o.OrderDate) : query.OrderByDescending(o => o.OrderDate),
+                "amount" => filterDto.IsAscending ? query.OrderBy(o => o.TotalAmount) : query.OrderByDescending(o => o.TotalAmount),
                 _ => query
             };
 

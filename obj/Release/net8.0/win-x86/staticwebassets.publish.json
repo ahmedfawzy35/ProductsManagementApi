@@ -1,0 +1,20 @@
+{
+  "Version": 1,
+  "Hash": "HGmkz5In6erCNHkmiwj4s4Yo/zyv9gT7H7DZJzbYrOU=",
+  "Source": "ProductsManagement",
+  "BasePath": "_content/ProductsManagement",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ProductsManagement\\wwwroot",
+      "Source": "ProductsManagement",
+      "ContentRoot": "E:\\Programing\\Codes\\ProductsManagement\\ProductsManagement\\wwwroot\\",
+      "BasePath": "_content/ProductsManagement",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [],
+  "Endpoints": []
+}

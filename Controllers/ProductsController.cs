@@ -154,7 +154,7 @@ namespace Products_Management_API.Controllers
 
 
         [HttpGet("Filtering")]
-        public async Task<IActionResult> GetFilteredProducts(ProductFilterDto filterDto)
+        public async Task<IActionResult> GetFilteredProducts([FromQuery] ProductFilterDto filterDto)
         {
             if (!ModelState.IsValid)
             {

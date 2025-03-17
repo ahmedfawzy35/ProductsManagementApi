@@ -17,10 +17,12 @@ namespace Products_Management_API.Models.DTO.Supplier
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Phone number is required.")]
-        [Phone(ErrorMessage = "Invalid phone number format.")]
-        [MaxLength(20, ErrorMessage = "Phone number cannot exceed 20 characters.")]
-        [DefaultValue("1234567890")]
+        [RegularExpression(@"^01\d{9}$", ErrorMessage = "Phone number must start with '01' and be exactly 11 digits.")]
+        [MaxLength(11, ErrorMessage = "Phone number must be exactly 11 digits.")]
+        [MinLength(11, ErrorMessage = "Phone number must be exactly 11 digits.")]
+        [DefaultValue("01012345678")]
         public string PhoneNumber { get; set; }
+
 
         [Required(ErrorMessage = "Address is required.")]
         [MaxLength(200, ErrorMessage = "Address cannot exceed 200 characters.")]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Products_Management_API.Models.DTO.Supplier;
 using Products_Management_API.Services.Interfaces;
+using ProductsManagement.Models.DTO.Supplier;
 
 namespace Products_Management_API.Controllers
 {
@@ -122,7 +123,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("Filtering")]
-        public async Task<IActionResult> GetFilteredSuppliersAsync(SupplierFilterDto filterDto)
+        public async Task<IActionResult> GetFilteredSuppliersAsync([FromQuery] SupplierFilterDto filterDto)
         {
             if (!ModelState.IsValid)
             {

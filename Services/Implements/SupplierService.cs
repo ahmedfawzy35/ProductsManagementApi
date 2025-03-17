@@ -3,6 +3,7 @@ using Products_Management_API.Models.Domain;
 using Products_Management_API.Models.DTO.Supplier;
 using Products_Management_API.Repository.Interfaces;
 using Products_Management_API.Services.Interfaces;
+using ProductsManagement.Models.DTO.Supplier;
 
 namespace Products_Management_API.Services.Implements
 {
@@ -41,6 +42,15 @@ namespace Products_Management_API.Services.Implements
             {
                 throw new Exception("Created date cannot be in the future");
             }
+            if (await _supplierRepository.EmailExistsAsync(entity.Email))
+            {
+                throw new InvalidOperationException("Email already exists");
+            }
+
+            if (await _supplierRepository.PhoneExistsAsync(entity.PhoneNumber))
+            {
+                throw new InvalidOperationException("Phone Number already exists");
+            }
 
             var supplier = _mapper.Map<Supplier>(entity);
             await _supplierRepository.AddAsync(supplier);
@@ -70,7 +80,15 @@ namespace Products_Management_API.Services.Implements
         {
             var supplier = await _supplierRepository.GetByIdAsync(id) ??
                 throw new KeyNotFoundException("Supplier not found");
+            if (await _supplierRepository.EmailExistsAsync(entity.Email))
+            {
+                throw new InvalidOperationException("Email already exists");
+            }
 
+            if (await _supplierRepository.PhoneExistsAsync(entity.PhoneNumber))
+            {
+                throw new InvalidOperationException("Phone Number already exists");
+            }
             // Check if all input values are the same as the current values
             if (supplier.Name == entity.Name && supplier.Email == entity.Email
                 && supplier.PhoneNumber == entity.PhoneNumber && supplier.IsActive == entity.IsActive)
@@ -79,10 +97,9 @@ namespace Products_Management_API.Services.Implements
             _mapper.Map(entity, supplier);
             await _supplierRepository.UpdateAsync(id, supplier);
         }
-        public async Task<IEnumerable<SupplierDto>> GetFilteredSuppliersAsync(SupplierFilterDto filter)
+        public async Task<IEnumerable<SupplierDto>> GetFilteredSuppliersAsync(SupplierFilterDto filterDto)
         {
-            var supplier = await _supplierRepository.GetFilteredSuppliersAsync(filter);
-
+            var supplier = await _supplierRepository.GetFilteredSuppliersAsync(filterDto);
             if (supplier == null || !supplier.Any())
                 throw new Exception("Not there Reviews");
             var suppliersDto = _mapper.Map<IEnumerable<SupplierDto>>(supplier);
