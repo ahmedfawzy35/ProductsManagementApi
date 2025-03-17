@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Products_Management_API.Models.DTO;
 using Products_Management_API.Models.DTO.Auth;
 using Products_Management_API.Services.Interfaces;
+using ProductsManagement.Models.DTO.Auth;
 using System.Security.Claims;
 
 namespace Products_Management_API.Controllers
@@ -166,7 +166,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Super Admin")]
         [HttpPost("AssignRole")]
         public async Task<IActionResult> AssignRole([FromBody] AssignRoleDto model)
         {
@@ -185,6 +185,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("AllUsers")]
         [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client, NoStore = false)]
         public async Task<IActionResult> GetUsers()
@@ -204,6 +205,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("UserByEmail/{email}")]
         [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client, NoStore = false)]
         public async Task<IActionResult> GetUserByEmail(string email)
@@ -223,6 +225,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpGet("UserById/{Id}")]
         [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client, NoStore = false)]
         public async Task<IActionResult> GetUserById(string Id)
@@ -242,6 +245,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpPut("UpdateUser/{Id}")]
         public async Task<IActionResult> UpdateUser(string Id, [FromBody] UpdateUserDto model)
         {
@@ -260,6 +264,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("AllRoles")]
         [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client, NoStore = false)]
         public async Task<IActionResult> GetAllRoles()
@@ -279,6 +284,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("AllUsersByRole/{roleName}")]
         [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client, NoStore = false)]
         public async Task<IActionResult> GetUsersByRole(string roleName)
@@ -298,6 +304,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("AllRolesByEmail/{email}")]
         [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client, NoStore = false)]
         public async Task<IActionResult> GetRolesByEmail(string email)
@@ -317,6 +324,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpPut("UpdateRole")]
         public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleDto model)
         {
@@ -335,6 +343,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpDelete("DeleteRole/{roleName}")]
         public async Task<IActionResult> DeleteRole(string roleName)
         {
@@ -353,6 +362,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpPost("UnlockUser/{email}")]
         public async Task<IActionResult> UnlockUser(string email)
         {
@@ -371,6 +381,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpPost("AddRole/{RoleName}")]
         public async Task<IActionResult> AddRole(string RoleName)
         {
@@ -389,6 +400,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpDelete("RemoveUserFromRole{email}/{role}")]
         public async Task<IActionResult> RemoveUserFromRole(string email, string role)
         {
@@ -407,6 +419,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpPost("AddUser")]
         public async Task<IActionResult> AddUser([FromBody] AddUserDto userDto)
         {
@@ -425,6 +438,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpDelete("DeleteUserByEmail/{email}")]
         public async Task<IActionResult> DeleteUser(string email)
         {
@@ -443,6 +457,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("RefreshToken")]
         public async Task<IActionResult> RefreshToken()
         {
@@ -465,7 +480,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize()]
         [HttpPost("Logout")]
         public async Task<IActionResult> Logout()
         {
