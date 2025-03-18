@@ -93,7 +93,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "Products_Management_API.Models.DTO.AssignRoleDto",
+        "Type": "ProductsManagement.Models.DTO.Auth.AssignRoleDto",
         "IsRequired": true
       }
     ],

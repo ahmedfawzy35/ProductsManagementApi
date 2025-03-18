@@ -54,7 +54,7 @@ namespace Products_Management_API.Services.Implements
             }
         }
 
-        public async Task<AuthResponseDto> LoginAsync(RequestLoginDto request)
+        public async Task<string> LoginAsync(RequestLoginDto request)
         {
             var authModel = new AuthResponseDto();
 
@@ -70,14 +70,7 @@ namespace Products_Management_API.Services.Implements
                 throw new Exception("User has no assigned roles");
 
             var token = await CreateJwtToken(user);
-
-            authModel.IsAuthenticated = true;
-            authModel.Token = new JwtSecurityTokenHandler().WriteToken(token);
-            authModel.Email = user.Email;
-            authModel.Username = user.UserName;
-            authModel.ExpiresOn = token.ValidTo;
-            authModel.Roles = roles.ToList();
-
+            string encodedToken = new JwtSecurityTokenHandler().WriteToken(token);
             if (user.RefreshTokens.Any(t => t.IsActive))
             {
                 var activeRefreshToken = user.RefreshTokens.FirstOrDefault(t => t.IsActive);
@@ -92,7 +85,22 @@ namespace Products_Management_API.Services.Implements
                 user.RefreshTokens.Add(refreshToken);
                 await _manager.UpdateAsync(user);
             }
-            return authModel;
+
+            string subject = "Your Login Token";
+            string body = $@"
+        <h2>Your JWT Token</h2>
+        <div style='background-color: #f4f4f9; padding: 15px; border-radius: 8px; margin-bottom: 10px;'>
+            <p style='font-family: Arial, sans-serif; color: #333;'>Below is your access token. Please keep it safe and use it for authentication:</p>
+            <code style='display: block; background-color: #333; color: #fff; padding: 10px; border-radius: 5px; overflow-x: auto;'>{encodedToken}</code>
+        </div>
+        <p style='font-family: Arial, sans-serif; color: #333;'>Use this token for authentication when making requests to the API.</p>
+    ";
+
+            bool emailSent = await _emailService.SendEmailAsync(user.Email, subject, body);
+            if (!emailSent)
+                return "Login successful, but failed to send token via email";
+
+            return "Login successful. Token sent to your email";
         }
 
         public async Task<AuthResponseDto> RefreshTokenAsync(string token)
@@ -181,7 +189,7 @@ namespace Products_Management_API.Services.Implements
 
             var subject = "Password Reset Code";
             var message = $"Your password reset code is: {resetCode}";
-            await _emailService.SendEmailAsync(user.Email, subject, message);
+            //await _emailService.SendEmailAsync(user.Email, subject, message);
 
             return $"A password reset code has been sent to your email.";
         }
@@ -236,7 +244,7 @@ namespace Products_Management_API.Services.Implements
 
             var subject = "Your 2FA Code";
             var message = $"Your Two-Factor Authentication code is : {twoFactorCode}";
-            await _emailService.SendEmailAsync(user.Email, subject, message);
+            //await _emailService.SendEmailAsync(user.Email, subject, message);
 
             return "A 2FA code has been sent to your email.";
         }
@@ -279,7 +287,7 @@ namespace Products_Management_API.Services.Implements
 
             await _manager.UpdateAsync(user);
 
-            await _emailService.SendEmailAsync(user.Email, "Your 2FA Code", $"Your new 2FA code is: {newCode}");
+            //await _emailService.SendEmailAsync(user.Email, "Your 2FA Code", $"Your new 2FA code is: {newCode}");
 
             return "A new 2FA code has been sent to your email.";
         }

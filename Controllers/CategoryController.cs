@@ -36,7 +36,7 @@ namespace Products_Management_API.Controllers
 
 
         [HttpGet("CategoryById/{id:int}")]
-        //[Authorize]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetById(int id)
         {
             if (!ModelState.IsValid)
@@ -55,7 +55,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("CategoryByName/{Name}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetByName(string Name)
         {
             if (!ModelState.IsValid)
@@ -74,8 +74,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("CountProductPerCategory")]
-        //[Authorize(Roles = "Admin")]
-        //[Authorize(Roles = "Super Admin")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetCategoryProductCount()
         {
             if (!ModelState.IsValid)
@@ -94,8 +93,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpPost("AddCategory")]
-        //[Authorize(Roles = "Admin")]
-        //[Authorize(Roles = "Super Admin")]
+        [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> AddCategory(CategoryCreateDto createCategoryDto)
         {
             if (!ModelState.IsValid)
@@ -116,8 +114,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpPut("UpdateCategory/{id}")]
-        //[Authorize(Roles = "Admin")]
-        //[Authorize(Roles = "Super Admin")]
+        [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] CategoryUpdateDto updateDto)
         {
             if (!ModelState.IsValid)
@@ -137,7 +134,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpDelete("DeleteCategory/{id}")]
-        //[Authorize(Roles = "Admin,Super Admin")]
+        [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -152,8 +149,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("GetAllCategoriesAddedInLast/{days}Days")]
-        //[Authorize(Roles = "Admin")]
-        //[Authorize(Roles = "Super Admin")]
+        [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> GetAllCategoriesAddedInLastDays(int days)
         {
             if (!ModelState.IsValid)
@@ -173,6 +169,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("Filtering")]
+        [Authorize]
         public async Task<IActionResult> GetFilteredCategories([FromQuery] string? name, [FromQuery] bool? isActive, [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
         {
             if (!ModelState.IsValid)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Products_Management_API.Models.DTO.Supplier;
 using Products_Management_API.Services.Interfaces;
 using ProductsManagement.Models.DTO.Supplier;
@@ -14,6 +15,7 @@ namespace Products_Management_API.Controllers
 
         [HttpGet("AllSupplier")]
         [ResponseCache(Duration = 60)]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetAll()
         {
             if (!ModelState.IsValid)
@@ -33,6 +35,8 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("SupplierById/{id:int}")]
+        [Authorize(Roles = "Super Admin, Admin")]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -47,6 +51,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpPost("AddSupplier")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> Create(CreateSupplierDto createSupplier)
         {
             if (!ModelState.IsValid)
@@ -66,6 +71,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpPut("UpdateSupplier/{id:int}")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> Update(int id, UpdateSupplierDto updateSupplier)
         {
             if (!ModelState.IsValid)
@@ -85,6 +91,7 @@ namespace Products_Management_API.Controllers
 
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpDelete("DeleteSupplier/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -103,6 +110,8 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
+        [ResponseCache(Duration = 60)]
         [HttpGet("AllSuppliersAddedInLast/{days:int}Days")]
         public async Task<IActionResult> GetAllReviewsAddedInLastDays(int days)
         {
@@ -123,6 +132,8 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("Filtering")]
+        [ResponseCache(Duration = 60)]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetFilteredSuppliersAsync([FromQuery] SupplierFilterDto filterDto)
         {
             if (!ModelState.IsValid)

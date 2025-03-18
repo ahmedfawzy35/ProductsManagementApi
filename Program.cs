@@ -178,6 +178,16 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 1;
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // 1 
 
 builder.Services.AddAuthentication(options =>
@@ -197,7 +207,8 @@ builder.Services.AddAuthentication(options =>
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey
             (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-            RoleClaimType = "Roles"
+            RoleClaimType = "Roles",
+            ClockSkew = TimeSpan.Zero
         };
     });
 
@@ -209,7 +220,7 @@ builder.Services.AddAuthorization();
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 var app = builder.Build();
-
+app.UseRouting();
 var versionDescriptionProvider =
     app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
@@ -228,10 +239,16 @@ app.UseSwaggerUI(options =>
 //}
 app.UseResponseCaching();
 app.UseHttpsRedirection();
-app.UseAuthentication();  // ✅ تأكد من وضعه قبل UseAuthorization
+app.UseRouting();
+app.UseAuthentication(); // يجب أن يكون قبل UseAuthorization
 app.UseAuthorization();
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+app.UseCors("AllowAll");
 app.UseStaticFiles();
+
 
 
 app.Run();

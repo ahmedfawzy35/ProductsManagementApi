@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Products_Management_API.Models.DTO.Order;
 using Products_Management_API.Services.Interfaces;
 using ProductsManagement.Models.DTO.Order;
@@ -14,6 +15,7 @@ namespace Products_Management_API.Controllers
 
         [HttpGet("AllOrders")]
         [ResponseCache(Duration = 60)]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetAll()
         {
             if (!ModelState.IsValid)
@@ -31,6 +33,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("OrderById/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -51,8 +54,7 @@ namespace Products_Management_API.Controllers
 
 
         [HttpPost("AddOrder")]
-        //[Authorize(Roles = "Admin")]
-        //[Authorize(Roles = "Super Admin")]
+        [Authorize]
         public async Task<IActionResult> Add(OrderCreateDto orderCreateDto)
         {
             if (!ModelState.IsValid)
@@ -70,6 +72,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("UpdateOrder/{id:int}")]
         public async Task<IActionResult> Update(int id, [FromBody] OrderUpdateDto updateDto)
         {
@@ -89,6 +92,7 @@ namespace Products_Management_API.Controllers
 
         }
 
+        [Authorize]
         [HttpDelete("DeleteOrder/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -103,7 +107,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("AllOrdersAddedInLast/{days:int}Days")]
         public async Task<IActionResult> GetAllProductAddedInLastDays(int days)
         {
@@ -123,6 +127,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("Filtering")]
         public async Task<IActionResult> GetFilteredOrders([FromQuery] OrderFilterDto filterDto)
         {

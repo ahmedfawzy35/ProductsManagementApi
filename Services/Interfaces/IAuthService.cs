@@ -5,7 +5,7 @@ namespace Products_Management_API.Services.Interfaces
     public interface IAuthService
     {
         Task RegisterAsync(RequestRegisterDto request);
-        Task<AuthResponseDto> LoginAsync(RequestLoginDto request);
+        Task<string> LoginAsync(RequestLoginDto request);
         Task<AuthResponseDto> RefreshTokenAsync(string token);
         Task RevokeTokenAsync(string token);
         Task<string> AssignRoleAsync(string email, string roleName);

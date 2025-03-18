@@ -44,12 +44,6 @@ namespace Products_Management_API.Controllers
             {
                 var result = await _authService.LoginAsync(loginRegister);
 
-                if (!result.IsAuthenticated)
-                    return BadRequest(result.Message);
-
-                if (!string.IsNullOrEmpty(result.RefreshToken))
-                    SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
-
                 return Ok(result);
             }
             catch (Exception ex)

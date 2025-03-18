@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Products_Management_API.Enums;
 using Products_Management_API.Models.DTO.Review;
@@ -14,10 +15,10 @@ namespace Products_Management_API.Controllers
     {
         private readonly IReviewService _reviewService = reviewService;
         private readonly IReviewRepository _review = review;
-        private readonly IMapper _mapper = mapper;
 
         [HttpGet("AllReviews")]
         [ResponseCache(Duration = 60)]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetAll()
         {
             if (!ModelState.IsValid)
@@ -36,6 +37,8 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("ReviewById/{id:int}")]
+        [Authorize(Roles = "Super Admin, Admin")]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetById(int id)
         {
             if (!ModelState.IsValid)
@@ -54,6 +57,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpPost("AddReview")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> Create(CreateReviewDto createReview)
         {
             if (!ModelState.IsValid)
@@ -73,8 +77,8 @@ namespace Products_Management_API.Controllers
 
         }
 
-
         [HttpPut("UpdateReview/{id:int}")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> Update(int id, UpdateReviewDto updateReview)
         {
             if (!ModelState.IsValid)
@@ -93,6 +97,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpDelete("DeleteReview/{id:int}")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
@@ -111,6 +116,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("AllReviewsAddedInLast/{days}Days")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetAllReviewsAddedInLastDays(int days)
         {
             if (!ModelState.IsValid)
@@ -130,6 +136,8 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("Filtering")]
+        [ResponseCache(Duration = 60)]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetFilteredReviewsAsync([FromQuery] int? minRating, [FromQuery] int? maxRating, [FromQuery] string orderBy, [FromQuery] OrderDirection orderDirection)
         {
             if (!ModelState.IsValid)

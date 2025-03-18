@@ -11,8 +11,8 @@ namespace ProductsManagement.Models.DTO.Auth
         [DefaultValue("user@example.com")]
         public string Email { get; set; }
 
-        [DefaultValue("user@example.com")]
-        [Required(ErrorMessage = "User")]
+        [Required(ErrorMessage = "Role is required.")]
+        [DefaultValue("User")]
         public string Role { get; set; }
     }
 }

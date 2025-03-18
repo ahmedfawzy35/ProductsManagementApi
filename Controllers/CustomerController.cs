@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Products_Management_API.Models.DTO.Customer;
 using Products_Management_API.Services.Interfaces;
 
@@ -13,6 +14,7 @@ namespace Products_Management_API.Controllers
 
         [HttpGet("AllCustomers")]
         [ResponseCache(Duration = 60)]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetAll()
         {
             if (!ModelState.IsValid)
@@ -32,6 +34,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpGet("CustomerById/{id}")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetById(int id)
         {
             if (!ModelState.IsValid)
@@ -51,6 +54,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpPost("AddCustomer")]
+        [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> Add(CustomerCreateDto customerCreate)
         {
             if (!ModelState.IsValid)
@@ -68,6 +72,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpDelete("DeleteCustomer/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
@@ -86,6 +91,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin")]
         [HttpPut("UpdateCustomer/{id}")]
         public async Task<IActionResult> Update(int id, CustomerUpdateDto customerUpdateDto)
         {
@@ -104,6 +110,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("BornAfterYear/{year}")]
         public async Task<IActionResult> GetCustomersBornAfterYear(int year)
         {
@@ -122,6 +129,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("Filtering")]
         public async Task<IActionResult> GetFilteredCustomers([FromQuery] CustomerFilterDto filterDto)
         {

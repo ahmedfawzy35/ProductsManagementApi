@@ -14,7 +14,7 @@ namespace Products_Management_API.Controllers
         private readonly IProductService _productService = productService;
 
         [HttpGet("AllProducts")]
-        //[Authorize]
+        [Authorize]
         [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetAll()
         {
@@ -33,7 +33,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("ProductById/{id:int}")]
         [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetById(int id)
@@ -56,6 +56,7 @@ namespace Products_Management_API.Controllers
 
         [HttpGet("ProductByCategoryId/{categoryId:int}")]
         [ResponseCache(Duration = 60)]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetProductsByCategoryId(int categoryId)
         {
             if (!ModelState.IsValid)
@@ -76,6 +77,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpPost("AddProduct")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> Add([FromForm] CreateProductDto createProductDto)
         {
             if (!ModelState.IsValid)
@@ -94,6 +96,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpPut("UpdateProduct/{id}")]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> Update(int id, [FromForm] UpdateProductDto updateDto)
         {
             if (!ModelState.IsValid)
@@ -115,6 +118,7 @@ namespace Products_Management_API.Controllers
         }
 
         [HttpDelete("DeleteProduct/{id:int}")]
+        [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
@@ -134,6 +138,8 @@ namespace Products_Management_API.Controllers
 
 
         [HttpGet("GetAllProductAddedInLast/{days:int}Days")]
+        [ResponseCache(Duration = 60)]
+        [Authorize(Roles = "Super Admin, Admin")]
         public async Task<IActionResult> GetAllProductAddedInLastDays(int days)
         {
             if (!ModelState.IsValid)
@@ -154,6 +160,8 @@ namespace Products_Management_API.Controllers
 
 
         [HttpGet("Filtering")]
+        [ResponseCache(Duration = 60)]
+        [Authorize]
         public async Task<IActionResult> GetFilteredProducts([FromQuery] ProductFilterDto filterDto)
         {
             if (!ModelState.IsValid)
