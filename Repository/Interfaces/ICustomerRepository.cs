@@ -1,5 +1,5 @@
-﻿using Products_Management_API.Models.Domain;
-using Products_Management_API.Models.DTO.Customer;
+﻿using Products_Management_API.Models.DTO.Customer;
+using ProductsManagement.Models.Domain;
 
 namespace Products_Management_API.Repository.Interfaces
 {

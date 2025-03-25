@@ -189,7 +189,7 @@ namespace Products_Management_API.Services.Implements
 
             var subject = "Password Reset Code";
             var message = $"Your password reset code is: {resetCode}";
-            //await _emailService.SendEmailAsync(user.Email, subject, message);
+            await _emailService.SendEmailAsync(user.Email, subject, message);
 
             return $"A password reset code has been sent to your email.";
         }
@@ -244,7 +244,7 @@ namespace Products_Management_API.Services.Implements
 
             var subject = "Your 2FA Code";
             var message = $"Your Two-Factor Authentication code is : {twoFactorCode}";
-            //await _emailService.SendEmailAsync(user.Email, subject, message);
+            await _emailService.SendEmailAsync(user.Email, subject, message);
 
             return "A 2FA code has been sent to your email.";
         }
@@ -287,7 +287,7 @@ namespace Products_Management_API.Services.Implements
 
             await _manager.UpdateAsync(user);
 
-            //await _emailService.SendEmailAsync(user.Email, "Your 2FA Code", $"Your new 2FA code is: {newCode}");
+            await _emailService.SendEmailAsync(user.Email, "Your 2FA Code", $"Your new 2FA code is: {newCode}");
 
             return "A new 2FA code has been sent to your email.";
         }
@@ -330,7 +330,6 @@ namespace Products_Management_API.Services.Implements
             return "2FA verification successful";
         }
 
-
         public async Task<string> UnlockUserAsync(string email)
         {
             var user = await _manager.FindByEmailAsync(email) ??
@@ -347,7 +346,6 @@ namespace Products_Management_API.Services.Implements
 
             return "User account is not locked.";
         }
-
 
         public async Task<string> ChangePasswordAsync(ChangePasswordDto model)
         {
@@ -521,7 +519,6 @@ namespace Products_Management_API.Services.Implements
             }
         }
 
-
         public async Task<IEnumerable<string>> GetRolesByEmailAsync(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -604,7 +601,6 @@ namespace Products_Management_API.Services.Implements
 
             await _manager.UpdateAsync(user);
         }
-
 
         private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
         {

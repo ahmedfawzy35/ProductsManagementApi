@@ -24,7 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers().AddNewtonsoftJson()
     .AddJsonOptions(options =>
-    {// في التطبيق تدعم النصوص بدلاً من الأرقام JSON تأكد أن الإعدادات الافتراضية ل 
+    {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -39,6 +39,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+
 
 builder.Services.AddApiVersioning(options =>
 {
@@ -81,9 +83,6 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IEmailService, EmailService>();
 
-
-
-// after Generic Repository
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 
@@ -92,17 +91,7 @@ builder.Services.AddSingleton<FileService>();
 builder.Services.AddResponseCaching();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-// Register AutoMapper
 
-
-//2
-//builder.Services.AddIdentityCore<ApplicationUser>()
-//    .AddRoles<IdentityRole>()
-//    .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("Management")
-//    .AddEntityFrameworkStores<AuthDbContext>()
-//    .AddDefaultTokenProviders();
-
-// تسجيل خدمات Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
@@ -112,12 +101,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddDefaultTokenProviders();
 
 
-// Add Identity
-//builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-//    .AddEntityFrameworkStores<AuthDbContext>()
-//    .AddDefaultTokenProviders();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(options =>
@@ -154,20 +137,11 @@ builder.Services.AddSwaggerGen(options =>
 });
 });
 
-
-//builder.Services.AddScoped<UserManager<ApplicationUser>>();
-//builder.Services.AddScoped<SignInManager<ApplicationUser>>();
-//builder.Services.AddScoped<RoleManager<IdentityRole>>();
-
 builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 {
     options.TokenLifespan = TimeSpan.FromHours(1);
 });
 
-
-//builder.Services.AddScoped<IEmailService, EmailService>();
-
-// 3
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = false;
@@ -187,8 +161,6 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
-
-// 1 
 
 builder.Services.AddAuthentication(options =>
 {
@@ -224,9 +196,6 @@ app.UseRouting();
 var versionDescriptionProvider =
     app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
@@ -236,7 +205,7 @@ app.UseSwaggerUI(options =>
             description.GroupName.ToUpperInvariant());
     }
 });
-//}
+
 app.UseResponseCaching();
 app.UseHttpsRedirection();
 app.UseRouting();
@@ -248,7 +217,6 @@ app.UseEndpoints(endpoints =>
 });
 app.UseCors("AllowAll");
 app.UseStaticFiles();
-
 
 
 app.Run();

@@ -1,12 +1,12 @@
-﻿using Products_Management_API.Models.Domain;
-using Products_Management_API.Models.DTO.Product;
+﻿using Products_Management_API.Models.DTO.Product;
+using ProductsManagement.Models.Domain;
 
 namespace Products_Management_API.Repository.Interfaces
 {
     public interface IProductRepository : IGenericRepository<Product>
     {
         Task<IEnumerable<ProductDto>> GetAllProductsAsync();
-        Task<ProductDto> GetProductAsync(int categoryId);
+        Task<ProductDto> GetProductAsync(int id);
 
         Task<IEnumerable<ProductDto>> GetProductsAddedInLastDay(int days);
 

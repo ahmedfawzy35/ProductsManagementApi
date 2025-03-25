@@ -124,7 +124,6 @@ namespace Products_Management_API.Controllers
             try
             {
                 await _categoryService.UpdateAsync(id, updateDto);
-
                 return NoContent();
             }
             catch (Exception ex)

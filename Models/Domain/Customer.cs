@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Products_Management_API.Models.Domain;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Products_Management_API.Models.Domain
+namespace ProductsManagement.Models.Domain
 {
     public class Customer
     {

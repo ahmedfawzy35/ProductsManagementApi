@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Products_Management_API.Data;
 using Products_Management_API.Enums;
-using Products_Management_API.Models.Domain;
 using Products_Management_API.Models.DTO.Product;
 using Products_Management_API.Repository.Interfaces;
+using ProductsManagement.Models.Domain;
 
 namespace Products_Management_API.Repository.Implements
 {
@@ -14,36 +14,37 @@ namespace Products_Management_API.Repository.Implements
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
             return await _dbContext.Products
-                .AsNoTrackingWithIdentityResolution()
-                .Select(p => new ProductDto
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Description = p.Description,
-                    Price = p.Price,
-                    StockQuantity = p.StockQuantity,
-                    CreatedDate = p.CreatedDate,
-                    IsAvailable = p.IsAvailable,
-                    ImagePath = p.ImagePath,
-                    CategoryId = p.CategoryId,
-                    CategoryName = _dbContext.Categories
+     .AsNoTracking()
+     .Select(p => new ProductDto
+     {
+         Id = p.Id,
+         Name = p.Name,
+         Description = p.Description,
+         Price = p.Price,
+         StockQuantity = p.StockQuantity,
+         CreatedDate = p.CreatedDate,
+         IsAvailable = p.IsAvailable,
+         ImagePath = p.ImagePath,
+         CategoryId = p.CategoryId,
+         CategoryName = _dbContext.Categories
                         .Where(c => c.Id == p.CategoryId)
                         .Select(c => c.Name)
                         .FirstOrDefault(),
-                    SupplierId = p.SupplierId,
-                    SupplierName = _dbContext.Suppliers
+         SupplierId = p.SupplierId,
+         SupplierName = _dbContext.Suppliers
                         .Where(s => s.Id == p.SupplierId)
                         .Select(s => s.Name)
                         .FirstOrDefault()
-                })
-                .ToListAsync();
+     })
+     .ToListAsync();
+
         }
 
-        public async Task<ProductDto> GetProductAsync(int categoryId)
+        public async Task<ProductDto> GetProductAsync(int id)
         {
             var product = await _dbContext.Products
                 .AsNoTrackingWithIdentityResolution()
-                .Where(p => p.CategoryId == categoryId)
+                .Where(p => p.Id == id)
                 .Select(p => new ProductDto
                 {
                     Id = p.Id,

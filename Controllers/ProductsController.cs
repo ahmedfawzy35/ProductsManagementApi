@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Products_Management_API.Models.DTO.Product;
 using Products_Management_API.Services.Interfaces;
-using System.Security.Claims;
 
-namespace Products_Management_API.Controllers
+namespace ProductsManagement.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
@@ -44,9 +43,8 @@ namespace Products_Management_API.Controllers
             }
             try
             {
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 var productDto = await _productService.GetByIdAsync(id);
-                return Ok(new { p = productDto, Id = userId });
+                return Ok(productDto);
             }
             catch (Exception ex)
             {

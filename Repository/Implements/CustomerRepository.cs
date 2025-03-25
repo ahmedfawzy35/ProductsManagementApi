@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Products_Management_API.Data;
-using Products_Management_API.Models.Domain;
 using Products_Management_API.Models.DTO.Customer;
 using Products_Management_API.Repository.Interfaces;
+using ProductsManagement.Models.Domain;
 
 namespace Products_Management_API.Repository.Implements
 {

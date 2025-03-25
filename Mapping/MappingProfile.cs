@@ -9,6 +9,7 @@ using Products_Management_API.Models.DTO.Order;
 using Products_Management_API.Models.DTO.Product;
 using Products_Management_API.Models.DTO.Review;
 using Products_Management_API.Models.DTO.Supplier;
+using ProductsManagement.Models.Domain;
 using System.Security.Claims;
 
 namespace Products_Management_API.Mapping
@@ -17,25 +18,18 @@ namespace Products_Management_API.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Product, ProductDto>();
+            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<CreateProductDto, Product>().ReverseMap();
+            CreateMap<UpdateProductDto, Product>().ReverseMap();
 
-            CreateMap<CreateProductDto, Product>();
-            //    .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(_ => DateTime.UtcNow)) // Automatically set CreatedDate
-            //.ForMember(dest => dest.IsAvailable, opt => opt.MapFrom(_ => true)); // Automatically set IsActive to true;
-
-            CreateMap<UpdateProductDto, Product>();
-            //    .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(_ => DateTime.UtcNow)) // Automatically set CreatedDate
-            //.ForMember(dest => dest.IsAvailable, opt => opt.MapFrom(_ => true)); // Automatically set IsActive to true;
-
-            CreateMap<Category, CategoryDto>();
-
-            CreateMap<CategoryCreateDto, Category>();
+            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<CategoryCreateDto, Category>().ReverseMap();
 
             //CreateMap<CategoryUpdateDto, Category>();
             CreateMap<CategoryUpdateDto, Category>()
            .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate));
 
-            CreateMap<Customer, CustomerDto>();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<CustomerCreateDto, Customer>().ReverseMap();
             CreateMap<CustomerUpdateDto, Customer>().ReverseMap();
 
@@ -44,18 +38,11 @@ namespace Products_Management_API.Mapping
             CreateMap<Order, OrderDto>().ReverseMap();
             CreateMap<OrderCreateDto, Order>().ReverseMap();
 
-            //CreateMap<AuthModel, TokenDto>();
-
             CreateMap<RequestRegisterDto, ApplicationUser>()
-         .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email)).ReverseMap(); // Set UserName = Email
-
+             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email)).ReverseMap(); // Set UserName = Email
             CreateMap<RequestLoginDto, ApplicationUser>()
-        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email)).ReverseMap(); // Set UserName = Email
-
+             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email)).ReverseMap(); // Set UserName = Email
             CreateMap<ApplicationUser, UserDto>().ReverseMap();
-            //CreateMap<UpdateUserDto, ApplicationUser>().ReverseMap();
-
-            //CreateMap<AddUserDto, ApplicationUser>();
 
             CreateMap<Review, ReviewDto>().ReverseMap();
             CreateMap<CreateReviewDto, Review>().ReverseMap();

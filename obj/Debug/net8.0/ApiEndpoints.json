@@ -845,7 +845,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Products_Management_API.Controllers.ProductsController",
+    "ContainingType": "ProductsManagement.Controllers.ProductsController",
     "Method": "Add",
     "RelativePath": "api/v2/Products/AddProduct",
     "HttpMethod": "POST",
@@ -901,7 +901,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Products_Management_API.Controllers.ProductsController",
+    "ContainingType": "ProductsManagement.Controllers.ProductsController",
     "Method": "GetAll",
     "RelativePath": "api/v2/Products/AllProducts",
     "HttpMethod": "GET",
@@ -911,7 +911,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Products_Management_API.Controllers.ProductsController",
+    "ContainingType": "ProductsManagement.Controllers.ProductsController",
     "Method": "Delete",
     "RelativePath": "api/v2/Products/DeleteProduct/{id}",
     "HttpMethod": "DELETE",
@@ -927,7 +927,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Products_Management_API.Controllers.ProductsController",
+    "ContainingType": "ProductsManagement.Controllers.ProductsController",
     "Method": "GetFilteredProducts",
     "RelativePath": "api/v2/Products/Filtering",
     "HttpMethod": "GET",
@@ -968,7 +968,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Products_Management_API.Controllers.ProductsController",
+    "ContainingType": "ProductsManagement.Controllers.ProductsController",
     "Method": "GetAllProductAddedInLastDays",
     "RelativePath": "api/v2/Products/GetAllProductAddedInLast/{days}Days",
     "HttpMethod": "GET",
@@ -984,7 +984,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Products_Management_API.Controllers.ProductsController",
+    "ContainingType": "ProductsManagement.Controllers.ProductsController",
     "Method": "GetProductsByCategoryId",
     "RelativePath": "api/v2/Products/ProductByCategoryId/{categoryId}",
     "HttpMethod": "GET",
@@ -1000,7 +1000,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Products_Management_API.Controllers.ProductsController",
+    "ContainingType": "ProductsManagement.Controllers.ProductsController",
     "Method": "GetById",
     "RelativePath": "api/v2/Products/ProductById/{id}",
     "HttpMethod": "GET",
@@ -1016,7 +1016,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Products_Management_API.Controllers.ProductsController",
+    "ContainingType": "ProductsManagement.Controllers.ProductsController",
     "Method": "Update",
     "RelativePath": "api/v2/Products/UpdateProduct/{id}",
     "HttpMethod": "PUT",

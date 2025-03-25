@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Products_Management_API.Models.Domain;
 using Products_Management_API.Models.DTO.Customer;
 using Products_Management_API.Repository.Interfaces;
 using Products_Management_API.Services.Interfaces;
+using ProductsManagement.Models.Domain;
 using System.ComponentModel.DataAnnotations;
 
 namespace Products_Management_API.Services.Implements

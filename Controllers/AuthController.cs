@@ -160,7 +160,7 @@ namespace Products_Management_API.Controllers
             }
         }
 
-        [Authorize(Roles = "Super Admin")]
+        //[Authorize(Roles = "Super Admin")]
         [HttpPost("AssignRole")]
         public async Task<IActionResult> AssignRole([FromBody] AssignRoleDto model)
         {
@@ -424,7 +424,7 @@ namespace Products_Management_API.Controllers
             try
             {
                 await _authService.AddUserAsync(userDto, userDto.Password, userDto.Role);
-                return NoContent();
+                return StatusCode(201);
             }
             catch (Exception ex)
             {
@@ -484,7 +484,6 @@ namespace Products_Management_API.Controllers
 
                 if (string.IsNullOrEmpty(userId))
                     return Unauthorized(new { message = "Invalid user" });
-                Console.WriteLine($"Extracted User ID: {userId}");
                 await _authService.LogoutAsync(userId);
 
                 return Ok(new { message = "Logged out successfully" });

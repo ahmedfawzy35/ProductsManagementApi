@@ -34,6 +34,7 @@ namespace Products_Management_API.Controllers
         }
 
         [Authorize(Roles = "Super Admin, Admin")]
+        [ResponseCache(Duration = 60)]
         [HttpGet("OrderById/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -51,7 +52,6 @@ namespace Products_Management_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
 
         [HttpPost("AddOrder")]
         [Authorize]
@@ -109,6 +109,7 @@ namespace Products_Management_API.Controllers
 
         [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("AllOrdersAddedInLast/{days:int}Days")]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetAllProductAddedInLastDays(int days)
         {
             if (!ModelState.IsValid)
@@ -129,6 +130,7 @@ namespace Products_Management_API.Controllers
 
         [Authorize(Roles = "Super Admin, Admin")]
         [HttpGet("Filtering")]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetFilteredOrders([FromQuery] OrderFilterDto filterDto)
         {
             if (!ModelState.IsValid)
